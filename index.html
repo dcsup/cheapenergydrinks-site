@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cheap Energy Drinks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Find cheap energy drink deals, discounts, and bulk buys without overpaying." />
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0f172a;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(15, 23, 42, 0.85);
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+    }
+    .logo-main { color: var(--accent); }
+    .logo-sub { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; }
+    .nav-tagline {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    main {
+      flex: 1;
+    }
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: minmax(0, 1fr); padding-top: 2rem; }
+    }
+    .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      max-width: 32rem;
+    }
+    .hero-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+    .hero-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+    .hero-list span.check {
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    a.btn-primary, a.btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, border-color 0.1s ease;
+    }
+    a.btn-primary {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #052e16;
+      box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
+      font-weight: 600;
+    }
+    a.btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(34, 197, 94, 0.4);
+    }
+    a.btn-ghost {
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.7);
+    }
+    a.btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .trust-text {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .hero-card {
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.12) 0, rgba(15, 23, 42, 1) 50%);
+      border-radius: 1.5rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+    }
+    .hero-card h2 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .hero-card p {
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+    .deal-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      margin-bottom: 0.75rem;
+    }
+    .deal-dot {
+      width: 0.4rem;
+      height: 0.4rem;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+    }
+    .deal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .deal {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 0.9rem;
+      padding: 0.7rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.75rem;
+    }
+    .deal-name {
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+    .deal-price {
+      font-size: 0.9rem;
+    }
+    .deal-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-top: 0.25rem;
+    }
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1rem 2.5rem;
+    }
+    .section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+    .section p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 40rem;
+    }
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .benefits { grid-template-columns: minmax(0, 1fr); }
+    }
+    .benefit {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 1rem;
+      padding: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 0.85rem;
+    }
+    .benefit-title {
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .benefit p { font-size: 0.8rem; }
+    .cta {
+      text-align: center;
+      padding: 2.5rem 1rem 3rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      background: radial-gradient(circle at bottom, rgba(34, 197, 94, 0.16) 0, #020617 55%);
+    }
+    .cta h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .cta p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .cta-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    footer {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      background: #020617;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="logo">
+        <span class="logo-main">cheapenergydrinks</span>
+        <span class="logo-sub">.com</span>
+      </div>
+      <div class="nav-tagline">Stop overpaying for caffeine.</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Price-first energy drink finder</div>
+        <h1>Energy drinks you love, <span>without the stupid markup.</span></h1>
+        <p>
+          We’re building a single place to compare real-world prices on cans, cases, and bulk buys so you can keep your fridge stocked without getting rinsed at the register.
+        </p>
+
+        <ul class="hero-list">
+          <li><span class="check">✓</span> Track the cheapest price per can across online and in-store deals</li>
+          <li><span class="check">✓</span> Focus on mainstream brands first (Monster, Red Bull, Reign, more soon)</li>
+          <li><span class="check">✓</span> No fake “50% off!” nonsense—just actual low prices</li>
+        </ul>
+
+        <div class="hero-actions">
+          <!-- TODO: point this to your email service or a simple mailto: link for now -->
+          <a class="btn-primary" href="mailto:info@cheapenergydrinks.com?subject=Keep%20me%20posted">
+            Get launch updates
+          </a>
+          <a class="btn-ghost" href="#sample-deals">
+            See sample deals
+          </a>
+        </div>
+        <div class="trust-text">
+          No spam. Just an email when we launch and when we add big new features.
+        </div>
+      </div>
+
+      <aside class="hero-card" id="sample-deals">
+        <div class="deal-tag">
+          <span class="deal-dot"></span>
+          Live feature in progress: real-time deal tracker
+        </div>
+        <h2>How CheapEnergyDrinks will work</h2>
+        <p>
+          We’ll scan multiple stores and sites, normalize price per can, and highlight the
+          best value—so you don’t have to do the math in the aisle.
+        </p>
+
+        <div class="deal-grid">
+          <div class="deal">
+            <div class="deal-name">Monster Original – 12 pack</div>
+            <div class="deal-price">$17.99 &bull; <strong>$1.50/can</strong></div>
+            <div class="deal-meta">Example online big-box price</div>
+            <div class="pill">Baseline price</div>
+          </div>
+          <div class="deal">
+            <div class="deal-name">Reign – 24 pack</div>
+            <div class="deal-price">$29.99 &bull; <strong>$1.25/can</strong></div>
+            <div class="deal-meta">Example warehouse club price</div>
+            <div class="pill">Better bulk value</div>
+          </div>
+          <div class="deal">
+            <div class="deal-name">Budget brand – 12 pack</div>
+            <div class="deal-price">$10.99 &bull; <strong>$0.92/can</strong></div>
+            <div class="deal-meta">Example regional grocery deal</div>
+            <div class="pill">Cheapest caffeine / $</div>
+          </div>
+          <div class="deal">
+            <div class="deal-name">Gas station single can</div>
+            <div class="deal-price">$3.49 &bull; <strong>$3.49/can</strong></div>
+            <div class="deal-meta">Typical convenience store markup</div>
+            <div class="pill">What we help you avoid</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <h2>What we’re building next</h2>
+      <p>
+        The goal is simple: make it stupid-easy to answer one question—“Where can I get my favorite energy
+        drink the cheapest right now?” Here’s what’s on the roadmap:
+      </p>
+
+      <div class="benefits">
+        <div class="benefit">
+          <div class="benefit-title">Price per can, auto-calculated</div>
+          <p>Compare different pack sizes and stores apples-to-apples with a clean price-per-can view.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit-title">Brand + flavor filters</div>
+          <p>Start with Monster, Red Bull, Reign, C4, and more—then drill down to exact flavors you actually drink.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit-title">Online vs. in-store deals</div>
+          <p>See whether it’s better to grab a case at the warehouse club, big-box store, or just order online.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2>Be an early tester</h2>
+      <p>
+        If you live on caffeine and hate overpaying for it, you’re exactly who we’re building this for.
+        Drop your email and we’ll invite you to try the first version.
+      </p>
+      <a class="btn-primary" href="mailto:info@cheapenergydrinks.com?subject=I%20want%20to%20beta%20test">
+        I want to beta test
+      </a>
+      <div class="cta-note">
+        Want to partner, list your brand, or share data? Use the same link and tell us what you have in mind.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> cheapenergydrinks.com &middot; Built by people who actually drink this stuff.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
